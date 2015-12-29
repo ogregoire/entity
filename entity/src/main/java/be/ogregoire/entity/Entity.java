@@ -29,9 +29,18 @@ public class Entity {
     this.id = id;
   }
 
+  public void edit(EntityEditor editor) {
+    checkClean();
+    editor.edit(this);
+    if (state == State.DIRTY) {
+      //
+    }
+  }
+
   private void checkClean() {
     if (state != State.CLEAN) {
-      throw new EntityException("Entity is not clean");
+      String message = String.format("Entity state should be %s but was %s", State.CLEAN, state);
+      throw new EntityException(message);
     }
   }
 
