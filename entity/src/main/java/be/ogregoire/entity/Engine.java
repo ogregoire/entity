@@ -29,4 +29,8 @@ public class Engine {
     return null;
   }
 
+  public void process(float delta) {
+
+  }
+
 }
