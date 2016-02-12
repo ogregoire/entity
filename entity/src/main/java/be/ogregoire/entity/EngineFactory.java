@@ -13,37 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example;
-
-import be.ogregoire.entity.Engine;
-import be.ogregoire.entity.EngineFactory;
-import be.ogregoire.entity.Entity;
+package be.ogregoire.entity;
 
 /**
  *
  * @author Olivier Grégoire
  */
-public class ExampleGame implements Runnable {
+public class EngineFactory {
 
-  public static void main(String[] args) {
-    new ExampleGame().run();
+  Injector injector = new Injector();
+
+  public EngineFactory() {
+    injector.block(Engine.class);
   }
 
-  @Override
-  public void run() {
-    Engine engine = new EngineFactory()
-        .create();
-
-    while (true) {
-      float delta = 0.01f;
-
-      engine.process(delta);
+  public EngineFactory register(Object instance) {
+    if (instance == null) {
+      throw new NullPointerException();
     }
-
+    injector.bind(instance);
+    return this;
   }
 
-  public void initPlayer(Entity entity) {
-
+  public Engine create() {
+    Engine engine = new Engine(this);
+    injector.bindForce(engine);
+    injector.provision();
+    return engine;
   }
 
 }
