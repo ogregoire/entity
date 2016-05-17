@@ -28,9 +28,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Aspect {
 
-  Class<? extends Component> allOf();
+  Class<? extends Component>[] allOf() default {};
 
-  Class<? extends Component> anyOf();
+  Class<? extends Component>[] anyOf() default {};
 
-  Class<? extends Component> noneOf();
+  Class<? extends Component>[] noneOf() default {};
 }
