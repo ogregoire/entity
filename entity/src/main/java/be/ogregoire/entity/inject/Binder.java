@@ -41,7 +41,7 @@ public class Binder {
     }
     Provider<T> provider = new ImplementationProvider<>(injector, implementation);
     Class<? extends Scope> scope = Optional.ofNullable(key.getAnnotation(Scoped.class))
-        .map(a -> a.value())
+        .map(Scoped::value)
         .orElse(NoScope.class);
     provider = injector.getScope(scope).scope(key, provider);
     injector.bind(key, provider);

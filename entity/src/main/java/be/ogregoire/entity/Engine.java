@@ -21,7 +21,7 @@ package be.ogregoire.entity;
  */
 public class Engine {
 
-  Engine(EngineFactory builder) {
+  Engine(EngineFactory factory) {
 
   }
 
