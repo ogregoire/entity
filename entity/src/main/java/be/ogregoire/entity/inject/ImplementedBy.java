@@ -13,31 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.ogregoire.entity;
+package be.ogregoire.entity.inject;
 
-import be.ogregoire.entity.inject.Injector;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
  *
  * @author Olivier Grégoire
  */
-public class EngineFactory {
+@Target({METHOD, CONSTRUCTOR, FIELD})
+@Retention(RUNTIME)
+@Documented
+public @interface ImplementedBy {
 
-  Injector injector = new Injector();
-
-  public EngineFactory register(Object instance) {
-    if (instance == null) {
-      throw new NullPointerException();
-    }
-    injector.bind(instance);
-    return this;
-  }
-
-  public Engine create() {
-    Engine engine = new Engine(this);
-    injector.bind(engine);
-    injector.provision();
-    return engine;
-  }
-
+  Class value();
 }

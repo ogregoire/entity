@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.ogregoire.entity;
+package be.ogregoire.entity.inject;
+
+import be.ogregoire.entity.inject.Injector;
+import be.ogregoire.entity.inject.Inject;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.ogregoire.entity;
+package be.ogregoire.entity.inject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -27,16 +27,12 @@ import java.util.Map;
  *
  * @author Olivier Grégoire
  */
-class Injector {
+public class Injector {
 
   private final Map<Class, Object> bindings = new HashMap<>();
   private final List<Provisioner> provisioners = new ArrayList<>();
 
-  void block(Class type) {
-    bindings.put(type, null);
-  }
-
-  void bind(Object instance) {
+  public void bind(Object instance) {
     Class type = instance.getClass();
     if (bindings.containsKey(type)) {
       throw new IllegalArgumentException("Can't register twice the same class");
@@ -51,12 +47,7 @@ class Injector {
     }
   }
 
-  void bindForce(Object instance) {
-    bindings.remove(instance.getClass());
-    bind(instance);
-  }
-
-  void provision() {
+  public void provision() {
     provisioners.forEach(Provisioner::provision);
   }
 

@@ -13,31 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package be.ogregoire.entity;
-
-import be.ogregoire.entity.inject.Injector;
+package be.ogregoire.entity.inject;
 
 /**
  *
  * @author Olivier Grégoire
  */
-public class EngineFactory {
+public interface Scope {
 
-  Injector injector = new Injector();
-
-  public EngineFactory register(Object instance) {
-    if (instance == null) {
-      throw new NullPointerException();
-    }
-    injector.bind(instance);
-    return this;
-  }
-
-  public Engine create() {
-    Engine engine = new Engine(this);
-    injector.bind(engine);
-    injector.provision();
-    return engine;
-  }
+  public <T> Provider<T> scope(Class<T> key, Provider<T> unscoped);
 
 }
